@@ -1,0 +1,21 @@
+.container{
+    background-color: var(--main-brand-clr);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.text{
+    padding: 0.25rem 0 0.25rem 0;
+    margin: 0;
+}
+
+.icon-heart{
+    color: red;
+}
+
+.icon-copyright{
+    color: black;
+}
+

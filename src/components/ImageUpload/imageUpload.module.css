@@ -1,0 +1,19 @@
+.action-button{
+    background-color: var(--main-brand-clr);
+    border: 3px var(--background-clr) solid;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: var(--background-clr);
+    font-weight: bold;
+    transition: 0.3s;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+.action-button:hover{
+    background-color: var(--background-clr);
+    color: var(--main-brand-clr);
+    border-color: var(--main-brand-clr);
+    cursor: pointer;
+}

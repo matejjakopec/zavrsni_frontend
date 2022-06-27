@@ -1,0 +1,18 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    min-height: calc(100vh - 7.9rem);
+}
+
+.link, .link:visited, .link:hover, .link:active{
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.link:hover{
+    transform: scale(1.05);
+    transition: 0.3s;
+}

@@ -1,0 +1,35 @@
+.title{
+    font-size: 1.5rem;
+    padding-bottom: 1rem;
+    font-weight: 500;
+}
+
+.icon{
+    height: 5rem;
+    filter: var(--gray-filter);
+    margin: 1rem;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 4px 5px var(--gray-subtle-2);
+    padding: 2rem;
+    margin: 1rem;
+}
+
+.container:hover{
+    background-color: var(--gray-subtle-1);
+    box-shadow: 0px 0px 10px 2px var(--main-brand-clr);
+}
+
+.container:hover > *{
+    color: var(--main-brand-clr);
+}
+
+.container:hover > img{
+    filter: var(--main-clr-filter);
+}
+

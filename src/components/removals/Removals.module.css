@@ -1,0 +1,31 @@
+.item{
+    list-style-type: none;
+    width: 30%;
+    box-shadow: 0px 0px 4px 5px var(--gray-subtle-2);
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    transition: transform 0.3s;
+    height: 10rem;
+}
+
+.item:hover{
+    background-color: var(--gray-subtle-1);
+    box-shadow: 0px 0px 10px 2px var(--main-brand-clr);
+    transform: scale(1.05);
+}
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding-left: 0rem;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+    min-height: calc(100vh - 7.9rem);
+}
+
+.link, .link:visited, .link:hover, .link:active{
+    text-decoration: none;
+    color: inherit;
+    height: 10rem;
+}
