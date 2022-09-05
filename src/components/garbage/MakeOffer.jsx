@@ -4,6 +4,7 @@ import {TailSpin} from "react-loader-spinner";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
 import classes from "./makeOffer.module.css"
+import backendUrl from "../backendUrl";
 
 class MakeOffer extends React.Component{
 
@@ -29,20 +30,17 @@ class MakeOffer extends React.Component{
                 ariaLabel='loading'
             />})
         try {
-            axios("http://localhost:8080/api/offers", {
+            axios(backendUrl + "api/offer/create", {
                 method: 'POST',
-                mode: 'cors',
                 headers: {
                     "Authorization": 'Bearer ' + this.context.token,
                     'Content-Type': 'application/json',
                 },
                 data: {
-                    post: "/api/post_garbages/" + this.props.id,
+                    post: this.props.id,
                     message: this.state.message,
                     price: this.state.price
                 },
-                withCredentials: true,
-                credentials: 'same-origin',
             })
                 .then(res => {
                     this.setState({spinner: "Ponuda uspješno poslana"});

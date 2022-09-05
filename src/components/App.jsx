@@ -12,6 +12,14 @@ import axios from "axios";
 import NewPost from "./new-post/NewPost";
 import Footer from "./footer/Footer";
 import history from "./history";
+import backendUrl from "./backendUrl";
+import OtherUser from "./userpage/OtherUser";
+import UsersGarbages from "./userpage/UsersGarbages";
+import UsersRemovals from "./userpage/UsersRemovals";
+import CurrentUserGarbages from "./userpage/CurrentUserGarbages";
+import CurrentUserRemovals from "./userpage/CurrentUserRemovals";
+import NewPostWrapper from "./edit-post/NewPostWrapper";
+
 
 class App extends React.Component{
 
@@ -29,15 +37,12 @@ class App extends React.Component{
     }
 
     getUser(token){
-        axios("http://localhost:8080/api/users", {
+        axios(backendUrl + "api/users/current", {
             method: 'GET',
-            mode: 'cors',
             headers: {
                 "Authorization": 'Bearer ' + token,
                 'Content-Type': 'application/json',
             },
-            withCredentials: true,
-            credentials: 'same-origin',
         })
             .then(res => {
                 this.context.setUser(res.data.id, res.data.username);
@@ -67,16 +72,27 @@ class App extends React.Component{
                     <Route path="/" element={<HomePage/>}/>
                     <Route path="/otpad" element={<Garbages/>}/>
                     <Route path="/otpad/:id" element={<GarbagePage/>}/>
+                    <Route path="/otpad/:id/uredi" element={<NewPostWrapper
+                        post={"garbage/"}
+                        redirect={"/otpad/"}/>}/>
                     <Route path="/odvoz" element={<Removals/>}/>
                     <Route path="/odvoz/:id" element={<RemovalPage/>}/>
+                    <Route path="/odvoz/:id/uredi" element={<NewPostWrapper
+                        post={"removal/"}
+                        redirect={"/odvoz/"}/>}/>
                     <Route path="/korisnik" element={<UserPage/>}/>
+                    <Route path="/korisnik/otpad" element={<CurrentUserGarbages/>}/>
+                    <Route path="/korisnik/odvoz" element={<CurrentUserRemovals/>}/>
+                    <Route path="/korisnik/:id" element={<OtherUser/>}/>
+                    <Route path="/korisnik/:id/otpad" element={<UsersGarbages/>}/>
+                    <Route path="/korisnik/:id/odvoz" element={<UsersRemovals/>}/>
                     <Route path="/novi-otpad" element={<NewPost
                         title={this.newGarbagePostTitle}
-                        url="post_garbages"
+                        url="garbage/create"
                         redirect="/otpad/"/>}/>
                     <Route path="/novi-odvoz" element={<NewPost
                         title={this.newRemovalPostTitle}
-                        url="post_removals"
+                        url="removal/create"
                         redirect="/odvoz/"/>}/>
                 </Routes>
                 <Footer/>

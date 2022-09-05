@@ -9,6 +9,8 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import classes from './removalPage.module.css'
+import backendUrl from "../backendUrl";
+import {Link} from "react-router-dom";
 
 function RemovalPage(){
     const [post, setPost] = useState([]);
@@ -20,15 +22,7 @@ function RemovalPage(){
     const {id} = useParams();
 
     useEffect(()=>{
-        axios("http://localhost:8080/api/post_removals/" + id, {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-            credentials: 'same-origin',
+        axios(backendUrl + "api/removal/" + id, {
         })
             .then((res) => {
                 setPost(res.data);
@@ -53,7 +47,7 @@ function RemovalPage(){
                     <SwiperSlide key={index}>
                         <img
                             className={classes.image}
-                            src={"http://localhost:8080/images/" + image.url}
+                            src={backendUrl + "images/" + image.url}
                             alt=""/>
                     </SwiperSlide>
                 )
@@ -66,7 +60,7 @@ function RemovalPage(){
         if(post.length === 0){
             return "";
         }else{
-            const miliseconds = Date.parse(post.published);
+            const miliseconds = Date.parse(post.published.date);
             const date = new Date(miliseconds);
             const str = date.toLocaleDateString('hr-HR', options);
             return str.charAt(0).toUpperCase() + str.slice(1);
@@ -91,23 +85,26 @@ function RemovalPage(){
                 </div>
                 <div>
                     <h2 className={classes.title}>{post.title}</h2>
-                    <p>
+                    <p className={classes.text}>
                         <span className={classes.explanation}>
                             Datum objave:
                         </span>
                         {getDate()}
                     </p>
-                    <p>
+                    <p className={classes.text}>
                         <span className={classes.explanation}>
                             Mjesto:
                         </span>
                         {post.location}
                     </p>
-                    <p>
+                    <p >
                         <span className={classes.explanation}>
                             Autor:
                         </span>
-                        {author.username}
+                        <Link to={{pathname: '/korisnik/' + author.id}}
+                              className={classes.link}>
+                            {author.username}
+                        </Link>
                     </p>
                     <p className={classes.explanation}>Opis:</p>
                     <p className={classes.description}>{post.content}</p>

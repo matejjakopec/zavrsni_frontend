@@ -1,9 +1,14 @@
-.container{
+.choose-container{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    min-height: calc(100vh - 7.9rem);
+    margin-bottom: 2rem;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
 }
 
 .link, .link:visited, .link:hover, .link:active{
@@ -15,4 +20,29 @@
 .link:hover{
     transform: scale(1.05);
     transition: 0.3s;
+}
+
+
+.highlight{
+    color: var(--main-brand-clr);
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+
+.text{
+    padding-left: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-clr)
+}
+
+.title{
+    color: var(--main-brand-clr);
+    font-weight: bold;
+    font-size: 2rem;
+    margin-top: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

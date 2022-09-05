@@ -1,0 +1,47 @@
+.sort-selection{
+    border: 2px solid var(--main-brand-clr);
+    margin-top: -1px;
+    margin-left: -2px;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    color: var(--text-clr);
+}
+
+.selection-left{
+    border-radius: 0.3rem 0 0 0.3rem;
+}
+
+.selection-right{
+    border-radius: 0 0.3rem 0.3rem 0;
+}
+
+.sort-selection:hover{
+    background-color: var(--main-brand-clr);
+    font-weight: bold;
+    color: var(--background-clr);
+    cursor: pointer;
+}
+
+.selected{
+    background-color: var(--main-brand-clr);
+    font-weight: bold;
+    color: var(--background-clr);
+}
+
+.sort-by{
+    padding-left: 1rem;
+}
+.sortby-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.container{
+    margin-left: 3rem;
+    margin-top: 2rem;
+    margin-right: 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 95%;
+}

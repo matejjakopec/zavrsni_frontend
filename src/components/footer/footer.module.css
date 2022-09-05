@@ -7,6 +7,7 @@
 }
 
 .text{
+    color: var(--text-clr);
     padding: 0.25rem 0 0.25rem 0;
     margin: 0;
 }
@@ -16,6 +17,6 @@
 }
 
 .icon-copyright{
-    color: black;
+    color: var(--text-clr);
 }
 

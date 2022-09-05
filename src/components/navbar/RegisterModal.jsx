@@ -4,6 +4,7 @@ import classes from './registerModal.module.css'
 import {TailSpin} from "react-loader-spinner";
 import axios from "axios";
 import Spinner from "../spinner/Spinner";
+import backendUrl from "../backendUrl";
 
 class RegisterModal extends React.Component{
 
@@ -52,9 +53,8 @@ class RegisterModal extends React.Component{
         event.preventDefault();
         this.setState({spinner: <Spinner/>})
         try {
-            axios("http://localhost:8080/api/users", {
+            axios(backendUrl + "api/users/create", {
                 method: 'POST',
-                mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -65,8 +65,6 @@ class RegisterModal extends React.Component{
                     email: this.state.email,
                     phoneNumber: this.state.phoneNumber,
                 },
-                withCredentials: true,
-                credentials: 'same-origin',
             })
                 .then(res => {
                     this.setState({spinner: "Uspjesna registracija"})

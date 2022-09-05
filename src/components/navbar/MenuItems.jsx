@@ -2,13 +2,13 @@
 
 export const MenuItems = [
     {
-        title: 'Usluge odvoza',
-        url: '/odvoz',
+        title: 'Otpad za odvesti',
+        url: '/otpad',
         cName: 'nav-links'
     },
     {
-        title: 'Otpad za odvesti',
-        url: '/otpad',
+        title: 'Usluge odvoza',
+        url: '/odvoz',
         cName: 'nav-links'
     },
     {

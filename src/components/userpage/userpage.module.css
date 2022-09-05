@@ -8,6 +8,7 @@
 
 .title{
     color: var(--main-brand-clr);
+    padding-top: 3rem;
 }
 
 .explanation{
@@ -43,4 +44,40 @@
 
 .button-text{
     padding-left: 0.5rem;
+}
+
+.posts-container{
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-top: 2rem;
+    width: 95%;
+}
+
+
+.highlight{
+    color: var(--main-brand-clr);
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+
+.text{
+    padding-left: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-clr);
+}
+
+.link{
+    color: var(--main-brand-clr);
+    text-decoration: none;
+    margin-left: 1rem;
+}
+
+.link:hover,.link:visited{
+    font-weight: bold;
+}
+
+.text-color{
+    color: var(--text-clr)
 }

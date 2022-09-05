@@ -11,7 +11,7 @@ class HomePageSelect extends React.Component{
                 <span className={classes.title}>{this.props.title}</span>
                 <img src={this.props.icon} alt={this.props.alt}
                 className={classes.icon}/>
-                <span>{this.props.text}</span>
+                <span className={classes.text}>{this.props.text}</span>
             </div>
         );
     }

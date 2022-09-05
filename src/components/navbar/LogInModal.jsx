@@ -6,6 +6,7 @@ import { TailSpin } from  'react-loader-spinner'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import UserContext from "../../context/UserContext";
 import Spinner from "../spinner/Spinner";
+import backendUrl from "../backendUrl";
 
 
 class LogInModal extends React.Component{
@@ -37,18 +38,12 @@ class LogInModal extends React.Component{
         event.preventDefault();
         this.setState({spinner: <Spinner/>})
         try {
-            axios("http://localhost:8080/api/login_check", {
+            axios(backendUrl + "api/login_check", {
                 method: 'POST',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
                 data: {
                     username: this.state.username,
                     password: this.state.password
                 },
-                withCredentials: true,
-                credentials: 'same-origin',
             })
                 .then(res => {
                     this.context.setToken(res.data.token);
@@ -66,15 +61,12 @@ class LogInModal extends React.Component{
     }
 
     getUser(token){
-        axios("http://localhost:8080/api/users", {
+        axios(backendUrl + "api/users/current", {
             method: 'GET',
-            mode: 'cors',
             headers: {
                 "Authorization": 'Bearer ' + token,
                 'Content-Type': 'application/json',
             },
-            withCredentials: true,
-            credentials: 'same-origin',
         })
             .then(res => {
                 this.context.setUser(res.data.id, res.data.username);

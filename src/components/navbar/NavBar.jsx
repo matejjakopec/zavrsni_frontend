@@ -5,10 +5,27 @@ import LogInModal from "./LogInModal";
 import RegisterModal from "./RegisterModal";
 import UserContext from "../../context/UserContext";
 import {Link} from "react-router-dom";
+import { ToggleSlider }  from "react-toggle-slider";
 
 
 
 class NavBar extends React.Component{
+
+    constructor(props) {
+        super(props);
+        this.onToggle = this.onToggle.bind(this);
+    }
+
+    state={
+        isLightTheme: true,
+    };
+
+    componentDidMount() {
+        let isLightTheme = localStorage.getItem("isLightTheme")
+        if(isLightTheme === "false"){
+            this.onToggle()
+        }
+    }
 
     signOut() {
         localStorage.setItem('token', '');
@@ -44,7 +61,30 @@ class NavBar extends React.Component{
         }
     }
 
+    onToggle(){
+        if(this.state.isLightTheme){
+            document.documentElement.style.setProperty('--text-clr',"#FFFFFF");
+            document.documentElement.style.setProperty('--background-clr',"black");
+            document.documentElement.style.setProperty('--gray-subtle-1',"#1f1f1f");
+            document.documentElement.style.setProperty('--gray-subtle-2',"#414141");
+            this.setState({isLightTheme: false})
+            localStorage.setItem("isLightTheme", "false")
+        }else{
+            document.documentElement.style.setProperty('--text-clr',"black");
+            document.documentElement.style.setProperty('--background-clr',"#FFFFFF");
+            document.documentElement.style.setProperty('--gray-subtle-1',"#f6f6f6");
+            document.documentElement.style.setProperty('--gray-subtle-2',"#BEBEBE");
+            this.setState({isLightTheme: true})
+            localStorage.setItem("isLightTheme", "true")
+        }
+    }
 
+    isDarkTheme(){
+        let isLightTheme = localStorage.getItem("isLightTheme")
+        if(isLightTheme === "false"){
+            return true
+        }
+    }
 
     render() {
         return (
@@ -100,6 +140,15 @@ class NavBar extends React.Component{
                     })}
                     {this.getUser()}
                     {this.getSignOut()}
+                    <div className={classes.toggle}>
+                        <ToggleSlider
+                            active={this.isDarkTheme()}
+                            onToggle={this.onToggle}
+                            handleBackgroundColorActive={"white"}
+                            handleBackgroundColor={"black"}
+                            barBackgroundColorActive={"black"}
+                            barBackgroundColor={'white'}/>
+                    </div>
                 </ul>
             </nav>
         )

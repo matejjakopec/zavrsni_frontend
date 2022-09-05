@@ -20,6 +20,7 @@
 
 .description{
     max-width: 30vw;
+    color: var(--text-clr);
 }
 
 
@@ -36,4 +37,17 @@
     justify-content: flex-start;
     align-items: flex-start;
     min-height: calc(100vh - 7.9rem);
+}
+
+.link{
+    color: var(--main-brand-clr);
+    text-decoration: none;
+}
+
+.link:hover,.link:visited{
+    font-weight: bold;
+}
+
+.text{
+    color: var(--text-clr);
 }

@@ -1,17 +1,15 @@
-import React from 'react';
-import UserContext from "../../context/UserContext";
-import ReactSelect, { createFilter } from "react-select";
-import locations from '../../data/locations.json'
-import ImageUpload from "../ImageUpload/ImageUpload";
-import {TailSpin} from "react-loader-spinner";
-import axios from "axios";
-import classes from "./NewPost.module.css";
+import React from "react";
+import classes from "../new-post/NewPost.module.css";
+import ReactSelect, {createFilter} from "react-select";
+import locations from "../../data/locations.json";
 import Spinner from "../spinner/Spinner";
-import history from "../history";
+import axios from "axios";
 import backendUrl from "../backendUrl";
+import history from "../history";
+import UserContext from "../../context/UserContext";
 
 
-class NewPost extends React.Component{
+class EditPost extends React.Component{
 
     constructor(props) {
         super(props);
@@ -21,7 +19,6 @@ class NewPost extends React.Component{
             location: '',
             locationId: '1',
             locationObj: [],
-            images: [],
             spinner: []
         };
 
@@ -29,6 +26,14 @@ class NewPost extends React.Component{
         this.handleContentChange = this.handleContentChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        axios(backendUrl + "api/" + this.props.post + this.props.id, {
+        })
+            .then((res) => {
+                this.setState({title: res.data.title,content: res.data.content, location: res.data.location})
+            })
     }
 
     handleTitleChange(event) {
@@ -55,72 +60,44 @@ class NewPost extends React.Component{
         );
     }
 
-    handleCallback = (childData) =>{
-        this.setState({images: childData})
-        console.log(this.state.images)
-    }
 
     getLocationToSend(){
         return JSON.parse(JSON.stringify(this.getFullLocation(this.state.locationId)[0])).label + ", " +
-        JSON.parse(JSON.stringify(this.getFullLocation(this.state.locationId)[0])).zupanija.toLowerCase()
-            .split(' ')
-            .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-            .join(' ')
+            JSON.parse(JSON.stringify(this.getFullLocation(this.state.locationId)[0])).zupanija.toLowerCase()
+                .split(' ')
+                .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+                .join(' ')
     }
 
-    getImages(){
-        if(this.state.images.length === 4)
-            return "";
-        let list = "[\"" + this.state.images.toString().split(',').join("\",\"") + "\"]".toString();
-        return JSON.parse(list);
-    }
 
     getData(){
         const token = this.context.token;
-        console.log(this.getImages()[0].length);
-        if(this.getImages()[0].length === 0){
-            return {
-                method: 'POST',
+        return {
+                method: 'PUT',
                 headers: {
                     "Authorization": 'Bearer ' + token,
                     'Content-Type': 'application/json',
-            },
+                },
                 data: {
                     title: this.state.title,
                     content: this.state.content,
                     location: this.getLocationToSend(),
                 },
             };
-        }else{
-            return{
-                method: 'POST',
-                headers: {
-                    "Authorization": 'Bearer ' + token,
-                    'Content-Type': 'application/json',
-            },
-                data: {
-                    title: this.state.title,
-                    content: this.state.content,
-                    location: this.getLocationToSend(),
-                    images: this.getImages()
-                },
-            }
-        }
     }
 
     handleSubmit(event) {
         event.preventDefault();
         this.setState({spinner: <Spinner/>})
-            axios(backendUrl + "api/" + this.props.url, this.getData())
-                .then(res => {
-                    this.setState({spinner: "Uspjesna objava oglasa"})
-                    history.push(this.props.redirect + res.data.id)
-                    window.location.reload()
-                })
+        axios(backendUrl + "api/" + this.props.post + this.props.id, this.getData())
+            .then(res => {
+                this.setState({spinner: "Uspjesno uredjivanje oglasa"})
+                history.push(this.props.redirect + res.data.id)
+                window.location.reload()
+            })
     }
 
     render(){
-
         return(
             <div className={classes.container}>
                 <div className={classes.title}>{this.props.title}</div>
@@ -130,21 +107,21 @@ class NewPost extends React.Component{
                     className={classes['form-container']}
                 >
                     <p className={classes.explanation}>Naslov oglasa:</p>
-                        <input
-                            className={classes['form-item']}
-                            type="text"
-                            placeholder="Naslov"
-                            onChange={this.handleTitleChange }
-                            value={this.state.title}
-                        />
+                    <input
+                        className={classes['form-item']}
+                        type="text"
+                        placeholder="Naslov"
+                        onChange={this.handleTitleChange }
+                        value={this.state.title}
+                    />
                     <p className={classes.explanation}>Opis oglasa:</p>
-                        <textarea
-                            className={classes['form-item']}
-                            cols="4"
-                            placeholder="Opis"
-                            onChange={this.handleContentChange }
-                            value={this.state.content}
-                        />
+                    <textarea
+                        className={classes['form-item']}
+                        cols="4"
+                        placeholder="Opis"
+                        onChange={this.handleContentChange }
+                        value={this.state.content}
+                    />
                     <p className={classes.explanation}>Odaberi lokaciju:</p>
                     <ReactSelect
                         filterOption={createFilter({ ignoreAccents: false })}
@@ -173,16 +150,10 @@ class NewPost extends React.Component{
                             {this.getLocationToSend()}
                         </span>
                     </div>
-                <br/>
-                    <p className={classes.explanation}>Odaberi slike:</p>
-                    <ImageUpload parentCallback={this.handleCallback} /><br/>
-                    <p className={classes.text}>
-                        Nakon odabira slika, a prije objave oglasa kliknuti na
-                        <span className={classes.highlight}>Pošalji slike</span>
-                    </p>
+                    <br/>
                     <input
                         type="submit"
-                        value="Objavi oglas"
+                        value="Izmijeni oglas"
                         className={classes['action-button']}
                     />
                 </form>
@@ -192,6 +163,6 @@ class NewPost extends React.Component{
     }
 }
 
-NewPost.contextType = UserContext;
+EditPost.contextType = UserContext
 
-export default NewPost;
+export default EditPost

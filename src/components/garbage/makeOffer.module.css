@@ -16,6 +16,8 @@
 
 .form-item{
     margin: 0.5rem 0 0.5rem;
+    background-color: var(--background-clr);
+    color: var(--text-clr);
 }
 
 .close{
@@ -29,6 +31,7 @@
     padding: 0;
     cursor: pointer;
     outline: inherit;
+    color: var(--text-clr);
 }
 
 .close:hover{
@@ -56,6 +59,7 @@
 .description{
     margin-top: 2rem;
     margin-bottom: 1rem;
+    color: var(--text-clr);
 }
 
 .action-button{

@@ -3,6 +3,7 @@ import UserContext from "../../context/UserContext";
 import axios from "axios";
 import classes from "./imageUpload.module.css";
 import Spinner from "../spinner/Spinner";
+import backendUrl from "../backendUrl";
 
 
 
@@ -33,23 +34,21 @@ class ImageUpload extends React.Component{
         Array.from(this.state.files).forEach((image, index) => {
             const fd = new FormData();
             fd.append('file', image, image.name)
-            axios("http://localhost:8080/api/images", {
+            axios(backendUrl + "api/images", {
                 method: 'POST',
-                mode: 'cors',
                 headers: {
                     "Authorization": 'Bearer ' + this.context.token,
                     'Content-Type': 'application/json',
                 },
                 data: fd,
-                withCredentials: true,
-                credentials: 'same-origin',
             })
                 .then(res => {
-                    img.push(res.data['@id'].toString());
+                    img.push(res.data['id'].toString());
                     this.setState({images: img})
                     this.props.parentCallback(img.toString());
                     this.imagesUploaded += 1;
                     this.checkForEnd();
+                    console.log(this.state.images);
                 })
         })
     }

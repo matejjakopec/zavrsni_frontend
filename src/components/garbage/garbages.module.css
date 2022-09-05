@@ -20,7 +20,6 @@
     padding-left: 0rem;
     justify-content: space-evenly;
     margin-top: 2rem;
-    min-height: calc(100vh - 7.9rem);
 }
 
 .link, .link:visited, .link:hover, .link:active{
